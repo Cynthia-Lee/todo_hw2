@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ListItemCard from './ListItemCard'
+import PropTypes from 'prop-types';
 
 export class ListItemsTable extends Component {
     render() {
@@ -14,12 +15,21 @@ export class ListItemsTable extends Component {
                     this.props.todoList.items.map((todoItem)=>(
                         <ListItemCard 
                             key={todoItem.key}
+                            todoList={this.props.todoList}
+                            loadList={this.props.loadList} 
                             listItem={todoItem} />
                     ))
                 }
             </div>
         )
     }
+}
+
+
+
+ListItemsTable.propTypes = {
+    loadList: PropTypes.func.isRequired,
+    todoList: PropTypes.object.isRequired
 }
 
 export default ListItemsTable
