@@ -20,13 +20,11 @@ export class ListScreen extends Component {
         }
     }
 
-    
-
     render() {
         return (
             <div id="todo_list">
                 <ListHeading goHome={this.props.goHome} />
-                <ListTrash />
+                <ListTrash todoList={this.props.todoList} loadList={this.props.loadList} todoLists={this.props.todoLists} goHome={this.props.goHome}/>
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>
@@ -54,7 +52,8 @@ export class ListScreen extends Component {
 
 ListScreen.propTypes = {
     loadList: PropTypes.func.isRequired,
-    todoList: PropTypes.object.isRequired
+    todoList: PropTypes.object.isRequired,
+    todoLists: PropTypes.array.isRequired
 }
 
 export default ListScreen

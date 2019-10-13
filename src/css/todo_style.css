@@ -193,6 +193,7 @@ font-size: 16pt;
   visibility: hidden;
   opacity: 0;
   transition: all 0.35s ease-in;
+  z-index: 1;
 }
 
 .modal.is_visible {
