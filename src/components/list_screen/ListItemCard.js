@@ -3,7 +3,33 @@ import PropTypes from 'prop-types'; // added
 
 export class ListItemCard extends Component {
 
+    getIndex(listItem) {
+        var i;
+        for (i = 0; i < this.props.todoList.items.length; i++) {
+            if (this.props.todoList.items[i] == listItem) {
+                return i;
+            }
+        }
+    }
+
     moveItemUp = (listItem) => {
+        // use keys as index
+        // this.props.todoList.items[index]
+        var itemIndex = this.getIndex(listItem);
+        // B, A 
+        // itemIndex = element at A
+        let temp = this.props.todoList.items[itemIndex];
+        // temp = data at A
+        this.props.todoList.items[itemIndex] = this.props.todoList.items[itemIndex-1];
+        // B, B
+        this.props.todoList.items[itemIndex-1] = temp;
+        // A, B
+        // load the list
+        this.props.loadList(this.props.todoList);
+
+        // need to disable appropriate buttons
+        
+        /*
         // use keys as index
         // this.props.todoList.items[index]
         var itemIndex = listItem.key;
@@ -22,6 +48,12 @@ export class ListItemCard extends Component {
         this.props.loadList(this.props.todoList);
 
         // need to disable appropriate buttons
+        */
+    }
+
+    moveItemDown = (listItem) => {
+        alert(this.getIndex(listItem));
+        alert(listItem.key);
     }
     
     render() {
@@ -43,7 +75,7 @@ export class ListItemCard extends Component {
 
                 <div className='list_item_card_toolbar'>
                     <div className='list_item_card_button' onClick={this.moveItemUp.bind(this, this.props.listItem)}>&#8679;</div>
-                    <div className='list_item_card_button'>&#8681;</div>
+                    <div className='list_item_card_button' onClick={this.moveItemDown.bind(this, this.props.listItem)}>&#8681;</div>
                     <div className='list_item_card_button'>&#10005;</div>
                 </div>
             </div>
