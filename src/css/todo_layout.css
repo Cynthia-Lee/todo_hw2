@@ -43,13 +43,22 @@ body {
 .home_list_link {}
 
 /* LIST SCREEN CONTROLS */
-#list_heading {}
+#list_heading {
+  width: 190px;  
+}
 #list_trash {
+  width: 55px;
+  position: absolute;
+  right: 0px;
+  text-align: right;
+  top: 5px;
+  /*
   position: absolute;
   left: 85%;
   width: 15%;
   text-align: right;
   top: 5%;
+  */
 }
 #list_details_container {
   padding-left: 2%;
