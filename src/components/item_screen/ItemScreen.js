@@ -5,7 +5,12 @@ export class ItemScreen extends Component {
 
     // load item that was passed, todoItems
     loadItem() {
-        
+
+    }
+
+    addItem(item) {
+        this.props.todoList.items.splice(this.props.todoList.items.length, 0, item);
+        this.props.loadList(this.props.todoList);
     }
 
     render() {
@@ -22,16 +27,21 @@ export class ItemScreen extends Component {
                     <div id="item_completed_prompt" className="item_prompt">Completed:</div>
                     <input id="item_completed_checkbox" className="item_input" type="checkbox" />
                 </div>
-                <button id="item_form_submit_button" className="item_button">Submit</button>
+                <button id="item_form_submit_button" className="item_button" onClick={this.addItem.bind(this, this.props.todoItem)}>Submit</button>
                 <button id="item_form_cancel_button" className="item_button">Cancel</button>
             </div>
         )
     }
 }
 
+// this.addItem(this.props.todoItem)
+// submit should differentiate between add item and edit item
+
 ItemScreen.propTypes = {
     currentScreen: PropTypes.string.isRequired,
-    todoItem: PropTypes.object.isRequired
+    todoItem: PropTypes.object.isRequired,
+    todoList: PropTypes.object.isRequired,
+    loadList: PropTypes.func.isRequired
 }
 
 //goHome={this.goHome.bind(this)}

@@ -33,6 +33,8 @@ export class ListItemsTable extends Component {
 
         this.processSortItemsByDueDate = this.processSortItemsByDueDate.bind(this);
         this.processSortItemsByStatus = this.processSortItemsByStatus.bind(this);
+
+        this.createKey = this.createKey.bind(this);
     }
     
     // provided from McKenna's todo javascript code
@@ -162,19 +164,58 @@ export class ListItemsTable extends Component {
         }
     }
 
-    createKey(todoList) {
+    createKeyTest(todoList) {
         var i;
-        var takenKey;
+        var currKey;
+        // want key that is the smallest number available
+        // this seems to be O(n)
+        var mOne = null; // start of gap
+        var minKey;
+        var maxKey;
         for (i = 0; i < todoList.length; i++) {
-            takenKey = todoList.items[i].key;
+            currKey = todoList.items[i].key;
+            if (currKey > maxKey) { // update max
+                maxKey = currKey;
+            }
+            if (minKey < currKey) {
+                minKey = currKey;
+            }
+            if (currKey == minKey++) { // update smallest key from gap
+                minKey = currKey;
+            } else {
+                mOne = minKey;
+            }
         }
+        // if mOne is the smallest key with a space after it
+        if (mOne != null) {
+            return mOne + 1;
+        } else {
+            return maxKey + 1;
+        }
+    }
+
+    createKey(todoList) {
+        // array.find(function(item){ return item.key==i }
+        var i;
+        for (i = 0; i < todoList.items.length; i++) {
+            if((todoList.items.find(function(item){ return item.key==i })) == null) { // true if found
+                return i;
+            }
+        }
+        return i;
     }
 
     /**
     * This method creates a new item for editing and sets up the view for editing.
     */
    createNewItem() {
+       var k = this.createKey(this.props.todoList);
        let newItem = {
+            "key": k,
+            "description": "",
+            "due_date": "",
+            "assigned_to": "",
+            "completed": false
             // key
             // description
             // due date
@@ -204,7 +245,7 @@ export class ListItemsTable extends Component {
                             listItem={todoItem} />
                     ))
                 }
-                <div className="list_item_add_card" onClick={this.props.goItem.bind(this, this.createNewItem)}>&#x2b;</div>
+                <div className="list_item_add_card" onClick={this.props.goItem.bind(this, this.createNewItem())}>&#x2b;</div>
             </div>
         )
     }
