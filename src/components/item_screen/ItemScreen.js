@@ -80,43 +80,6 @@ export class ItemScreen extends Component {
         this.updateItem(item, description, assignedTo, dueDate, completed);
     }
 
-
-    // load item that was passed, todoItems
-    // provided by McKenna's todo javascript code
-    /**
-     * This method loads the item in the list at index itemIndex so that it can be edited.
-     * 
-     * @param {Number} itemIndex Index of the item to edit.
-     * */
-    loadItem(editItem) {
-        if (editItem != null) {
-            this.loadItemData(editItem);
-        }
-    }
-
-    /**
-     * This method is for taking the data out of the itemToLoad
-     * object and putting it into controls that will allow the user
-     * to edit the data.
-     * 
-     * @param {TodoListItem} itemToLoad The item that is to be edited and
-     * so is to have its data loaded into the controls.
-     */
-    loadItemData(itemToLoad) {
-        let descriptionTextField = document.getElementById("item_description_textfield");
-        descriptionTextField.value = itemToLoad.description;
-        let assignedToTextField = document.getElementById("item_assigned_to_textfield");
-        assignedToTextField.value = itemToLoad.assigned_to;
-        let dueDatePicker = document.getElementById("item_due_date_picker");
-        dueDatePicker.value = itemToLoad.due_date;
-        let completedCheckbox = document.getElementById("item_completed_checkbox");
-        completedCheckbox.checked = itemToLoad.completed;
-    }
-
-    editItem() {
-
-    }
-
     render() {
         return (
             <div id="todo_item">
@@ -141,7 +104,7 @@ export class ItemScreen extends Component {
                 </div>
                 <button id="item_form_submit_button" className="item_button" onClick={this.props.todoItem.key == null ? 
                     this.updateNewItem.bind(this, this.props.todoItem, this.state.description, this.state.assigned_to, this.state.due_date, this.state.completed) 
-                    : this.editItem()}>Submit</button>
+                    : this.updateEditedItem.bind(this, this.props.todoItem, this.state.description, this.state.assigned_to, this.state.due_date, this.state.completed)}>Submit</button>
                 <button id="item_form_cancel_button" className="item_button" onClick={this.props.loadList.bind(this, this.props.todoList)}>Cancel</button>
             </div>
         )
