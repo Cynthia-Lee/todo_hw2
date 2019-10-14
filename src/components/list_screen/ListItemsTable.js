@@ -25,11 +25,14 @@ export class ListItemsTable extends Component {
     // Binding event handler methods to an instance.
     constructor(props) {
         super(props);
-        
+
         this.processSortItemsByTask = this.processSortItemsByTask.bind(this);
         this.isCurrentItemSortCriteria = this.isCurrentItemSortCriteria.bind(this);
         this.compare = this.compare.bind(this);
         this.sortTasks = this.sortTasks.bind(this);
+
+        this.processSortItemsByDueDate = this.processSortItemsByDueDate.bind(this);
+        this.processSortItemsByStatus = this.processSortItemsByStatus.bind(this);
     }
     
     // provided from McKenna's todo javascript code
@@ -40,9 +43,13 @@ export class ListItemsTable extends Component {
      * @param {ItemSortCriteria} sortingCriteria Sorting criteria to use.
      */
     sortTasks(sortingCriteria) {
-        this.setState({currentItemSortCriteria: sortingCriteria});
-        this.props.todoList.items.sort(this.compare);
-        this.props.loadList(this.props.todoList);
+        // this.setState({currentItemSortCriteria: sortingCriteria}); doesn't do it right away
+        // setState is delayed, using function() will pass it with the updated criteria
+        // function callback is guaranteed to fire after the update
+        this.setState({currentItemSortCriteria: sortingCriteria}, function() {
+            this.props.todoList.items.sort(this.compare);
+            this.props.loadList(this.props.todoList);
+        });
     }
 
     /**
@@ -85,8 +92,10 @@ export class ListItemsTable extends Component {
         // SORT BY DUE DATE
         else if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)
             || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING)) {
-            let date1 = item1.due_date;
-            let date2 = item2.due_date;
+                let dueDate1 = item1.due_date;
+                let dueDate2 = item2.due_date;
+                let date1 = new Date(dueDate1);
+                let date2 = new Date(dueDate2);
             if (date1 < date2)
                 return -1;
             else if (date1 > date2)
@@ -123,13 +132,43 @@ export class ListItemsTable extends Component {
         }
     }
 
+     /**
+     * This function is called in response to when the user clicks
+     * on the Due Date header in the items table.
+     */
+    processSortItemsByDueDate() {
+        // IF WE ARE CURRENTLY INCREASING BY DUE DATE SWITCH TO DECREASING
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)) {
+            this.sortTasks(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING);
+        }
+        // ALL OTHER CASES SORT BY INCREASING
+        else {
+            this.sortTasks(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING);
+        }
+    }
+
+    /**
+     * This function is called in response to when the user clicks
+     * on the Status header in the items table.
+     */
+    processSortItemsByStatus() {
+        // IF WE ARE CURRENTLY INCREASING BY STATUS SWITCH TO DECREASING
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_STATUS_INCREASING)) {
+            this.sortTasks(ItemSortCriteria.SORT_BY_STATUS_DECREASING);
+        }
+        // ALL OTHER CASES SORT BY INCRASING
+        else {
+            this.sortTasks(ItemSortCriteria.SORT_BY_STATUS_INCREASING);
+        }
+    }
+
     render() {
         return (
             <div id="list_items_container">
                 <div className="list_item_header_card">
                     <div className="list_item_task_header" onClick={this.processSortItemsByTask}>Task</div>
-                    <div className="list_item_due_date_header">Due Date</div>
-                    <div className="list_item_status_header">Status</div>
+                    <div className="list_item_due_date_header" onClick={this.processSortItemsByDueDate}>Due Date</div>
+                    <div className="list_item_status_header" onClick={this.processSortItemsByStatus}>Status</div>
                 </div>
                 {
                     this.props.todoList.items.map((todoItem)=>(
