@@ -14,7 +14,9 @@ export class ListItemCard extends Component {
     }
     */
 
-    moveItemUp = (listItem) => {
+    moveItemUp = (listItem, e) => {
+        e.stopPropagation();
+
         // this.props.todoList.items[index]
         var itemIndex = this.props.todoList.items.indexOf(listItem);
         // B, A 
@@ -52,7 +54,9 @@ export class ListItemCard extends Component {
         */
     }
 
-    moveItemDown = (listItem) => {
+    moveItemDown = (listItem, e) => {
+        e.stopPropagation();
+
         var itemIndex = this.props.todoList.items.indexOf(listItem);
         // B, A 
         // itemIndex = element at A
@@ -68,7 +72,9 @@ export class ListItemCard extends Component {
         // need to disable appropriate buttons
     }
 
-    deleteItem = (listItem) => {
+    deleteItem = (listItem, e) => {
+        e.stopPropagation();
+
         var itemIndex = this.props.todoList.items.indexOf(listItem);
         this.props.todoList.items.splice(itemIndex, 1);
         // load the list
@@ -95,14 +101,17 @@ export class ListItemCard extends Component {
                 }
 
                 <div className='list_item_card_toolbar'>
-                    <div className='list_item_card_button' onClick={this.moveItemUp.bind(this, this.props.listItem)}>&#x21e7;</div>
-                    <div className='list_item_card_button' onClick={this.moveItemDown.bind(this, this.props.listItem)}>&#x21e9;</div>
-                    <div className='list_item_card_button' onClick={this.deleteItem.bind(this, this.props.listItem)}>&#10005;</div>
+                    <div className='list_item_card_button' onClick={(e) => this.moveItemUp(this.props.listItem, e)}>&#x21e7;</div>
+                    <div className='list_item_card_button' onClick={(e) => this.moveItemDown(this.props.listItem, e)}>&#x21e9;</div>
+                    <div className='list_item_card_button' onClick={(e) => this.deleteItem(this.props.listItem, e)}>&#10005;</div>
                 </div>
             </div>
         )
     }
 }
+// (e) => this.moveItemUp(this.props.listItem, e)
+// {(e) => this.deleteRow(id, e)}
+// {this.deleteRow.bind(this, id)}
 
 /*
 const TodoSymbols = {
@@ -119,7 +128,6 @@ const TodoSymbols = {
 */
 
 // PropTypes added
-// {this.props.loadList.bind(this, this.props.todoList)}
 ListItemCard.propTypes = {
     listItem: PropTypes.object.isRequired,
     loadList: PropTypes.func.isRequired,
