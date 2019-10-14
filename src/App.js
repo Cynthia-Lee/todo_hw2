@@ -26,6 +26,11 @@ class App extends Component {
   loadList = (todoListToLoad) => {
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
     this.setState({currentList: todoListToLoad});
+    // move current list to top of todoLists
+    // remove current list from the array
+    this.state.todoLists.splice(this.state.todoLists.indexOf(todoListToLoad), 1)
+    // add current list to the top of todoLists
+    this.state.todoLists.splice(0, 0, todoListToLoad);
     console.log("currentList: " + this.state.currentList);
     console.log("currentScreen: " + this.state.currentScreen);
   }
