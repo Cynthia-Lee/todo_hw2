@@ -14,7 +14,8 @@ class App extends Component {
   state = {
     currentScreen: AppScreen.HOME_SCREEN,
     todoLists: testTodoListData.todoLists,
-    currentList: null
+    currentList: null,
+    todoItem: null // added for edit/add item
   }
 
   goHome = () => {
@@ -29,12 +30,14 @@ class App extends Component {
     console.log("currentScreen: " + this.state.currentScreen);
   }
 
+  // methods from previous homework, provided by McKenna
   /**
     * This function will navigate the user to the item screen where they
     * may edit an item.
     */
-  goItem() {
+  goItem(listItem) {
     this.setState({currentScreen: AppScreen.ITEM_SCREEN});
+    this.setState({todoItem: listItem});
     // would have loadList info already
   }
 
@@ -54,7 +57,7 @@ class App extends Component {
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen 
           currentScreen={this.state.currentScreen} // currentScreen: PropTypes.string.isRequired
-          // todoItem: PropTypes.object.isRequired
+          todoItem={this.state.todoItem} // todoItem: PropTypes.object.isRequired
           goHome={this.goHome.bind(this)}
           todoList={this.state.currentList} 
           loadList={this.loadList.bind(this)}/>;
