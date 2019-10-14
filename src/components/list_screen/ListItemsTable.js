@@ -33,8 +33,6 @@ export class ListItemsTable extends Component {
 
         this.processSortItemsByDueDate = this.processSortItemsByDueDate.bind(this);
         this.processSortItemsByStatus = this.processSortItemsByStatus.bind(this);
-
-        this.createKey = this.createKey.bind(this);
     }
     
     // provided from McKenna's todo javascript code
@@ -196,33 +194,17 @@ export class ListItemsTable extends Component {
     }
     */
 
-    createKey(todoList) {
-        // array.find(function(item){ return item.key==i }
-        var i;
-        for (i = 0; i < todoList.items.length; i++) {
-            if((todoList.items.find(function(item){ return item.key==i })) == null) { // true if found
-                return i;
-            }
-        }
-        return i;
-    }
-
     /**
-    * This method creates a new item for editing and sets up the view for editing.
+    * This method creates a new item for editing
     */
-   createNewItem() {
-       var k = this.createKey(this.props.todoList);
-       let newItem = {
-            "key": k,
+    createNewItem() {
+        let newItem = {
+            "key": null,
             "description": "",
             "due_date": "",
             "assigned_to": "",
-            "completed": false
-        }      
-        // submit
-        // cancel
-        // this.view.loadItemData(this.newItem);
-        // ENABLE/DISABLE THE APPROPRIATE BUTTONS
+            "completed": ""
+        }
         return newItem;
     }
 
@@ -240,7 +222,8 @@ export class ListItemsTable extends Component {
                             key={todoItem.key}
                             todoList={this.props.todoList}
                             loadList={this.props.loadList} 
-                            listItem={todoItem} />
+                            listItem={todoItem} 
+                            goItem={this.props.goItem} />
                     ))
                 }
                 <div className="list_item_add_card" onClick={this.props.goItem.bind(this, this.createNewItem())}>&#x2b;</div>
@@ -253,5 +236,7 @@ ListItemsTable.propTypes = {
     loadList: PropTypes.func.isRequired,
     todoList: PropTypes.object.isRequired
 }
+
+// <div className="list_item_add_card" onClick={this.props.goItem.bind(this, this.createNewItem())}>&#x2b;</div>
 
 export default ListItemsTable
