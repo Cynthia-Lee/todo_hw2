@@ -162,6 +162,31 @@ export class ListItemsTable extends Component {
         }
     }
 
+    createKey(todoList) {
+        var i;
+        var takenKey;
+        for (i = 0; i < todoList.length; i++) {
+            takenKey = todoList.items[i].key;
+        }
+    }
+
+    /**
+    * This method creates a new item for editing and sets up the view for editing.
+    */
+   createNewItem() {
+       let newItem = {
+            // key
+            // description
+            // due date
+            // completed
+        }      
+        // submit
+        // cancel
+        // this.view.loadItemData(this.newItem);
+        // ENABLE/DISABLE THE APPROPRIATE BUTTONS
+        return newItem;
+    }
+
     render() {
         return (
             <div id="list_items_container">
@@ -179,7 +204,7 @@ export class ListItemsTable extends Component {
                             listItem={todoItem} />
                     ))
                 }
-                <div className="list_item_add_card" onClick={this.props.goItem.bind(this, null)}>&#x2b;</div>
+                <div className="list_item_add_card" onClick={this.props.goItem.bind(this, this.createNewItem)}>&#x2b;</div>
             </div>
         )
     }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'; // added
 
 export class ListItemCard extends Component {
 
+    /*
     getIndex(listItem) {
         var i;
         for (i = 0; i < this.props.todoList.items.length; i++) {
@@ -11,10 +12,11 @@ export class ListItemCard extends Component {
             }
         }
     }
+    */
 
     moveItemUp = (listItem) => {
         // this.props.todoList.items[index]
-        var itemIndex = this.getIndex(listItem);
+        var itemIndex = this.props.todoList.items.indexOf(listItem);
         // B, A 
         // itemIndex = element at A
         let temp = this.props.todoList.items[itemIndex];
@@ -51,7 +53,7 @@ export class ListItemCard extends Component {
     }
 
     moveItemDown = (listItem) => {
-        var itemIndex = this.getIndex(listItem);
+        var itemIndex = this.props.todoList.items.indexOf(listItem);
         // B, A 
         // itemIndex = element at A
         let temp = this.props.todoList.items[itemIndex];
@@ -67,7 +69,7 @@ export class ListItemCard extends Component {
     }
 
     deleteItem = (listItem) => {
-        var itemIndex = this.getIndex(listItem);
+        var itemIndex = this.props.todoList.items.indexOf(listItem);
         this.props.todoList.items.splice(itemIndex, 1);
         // load the list
         this.props.loadList(this.props.todoList);

@@ -3,21 +3,9 @@ import PropTypes from 'prop-types';
 
 export class ItemScreen extends Component {
 
-    /**
-    * This method creates a new item for editing and sets up the view for editing.
-    */
-   loadNewItem() {
-       let newItem = {
-            // key
-            // description
-            // due date
-            // completed
-        }
-        // submit
-        // cancel
-        this.view.loadItemData(this.newItem);
-
-        // ENABLE/DISABLE THE APPROPRIATE BUTTONS
+    // load item that was passed, todoItems
+    loadItem() {
+        
     }
 
     render() {

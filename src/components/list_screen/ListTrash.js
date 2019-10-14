@@ -17,11 +17,13 @@ export class ListTrash extends Component {
     deleteList = () => {
         this.hideModal();
         // delete list from todoLists
-        var i = this.getIndex(this.props.todoList, this.props.todoLists);
+        var i = this.props.todoLists.indexOf(this.props.todoList);
+        // this.getIndex(this.props.todoList, this.props.todoLists);
         this.props.todoLists.splice(i, 1);
         this.props.goHome();
     }
 
+    /*
     getIndex(todoList, todoLists) {
         var i;
         for (i = 0; i < todoLists.length; i++) {
@@ -30,6 +32,7 @@ export class ListTrash extends Component {
             }
         }
     }
+    */
 
     // no cancel del list
     hideModal = () => {

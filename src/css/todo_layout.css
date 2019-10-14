@@ -140,7 +140,10 @@ body {
 #item_due_date_prompt {}
 #item_due_date_picker {}
 #item_completed_prompt {}
-#item_completed_checkbox {}
+#item_completed_checkbox {
+  width: 0px;
+  margin: 0px;
+}
 #item_form_submit_button {}
 #item_form_cancel_button {}
 
