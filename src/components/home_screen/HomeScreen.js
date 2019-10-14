@@ -6,13 +6,25 @@ import PropTypes from 'prop-types';
 
 export class HomeScreen extends Component {
 
+    createListKey(todoLists) {
+        // array.find(function(item){ return item.key==i }
+        var i;
+        for (i = 0; i < todoLists.length; i++) {
+            if((todoLists.find(function(list){ return list.key==i })) == null) { // true if found
+                return i;
+            }
+        }
+        return i;
+    }
+
     loadNewList = () => {
         // create new list
+        var k = this.createListKey(this.props.todoLists);
         let newList = {
-            // key
-            // name
-            // owner
-            // items arr
+            "key": k,
+            "name": "Unnknown",
+            "owner": "Unknown",
+            "items": []
         }
         
         // add to top of all lists

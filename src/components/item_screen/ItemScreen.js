@@ -31,7 +31,7 @@ export class ItemScreen extends Component {
         // this.newItem = null;
     }
 
-    createKey(todoList) {
+    createItemKey(todoList) {
         // array.find(function(item){ return item.key==i }
         var i;
         for (i = 0; i < todoList.items.length; i++) {
@@ -52,7 +52,7 @@ export class ItemScreen extends Component {
      * @param {Boolean} completed 
      */
      updateNewItem(item, description, assignedTo, dueDate, completed) {
-        var k = this.createKey(this.props.todoList);
+        var k = this.createItemKey(this.props.todoList);
         item.key = k;
         this.addItem(item);
         this.updateItem(item, description, assignedTo, dueDate, completed);
