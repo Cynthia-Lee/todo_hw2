@@ -101,14 +101,23 @@ export class ListItemCard extends Component {
                 }
 
                 <div className='list_item_card_toolbar'>
-                    <div className='list_item_card_button' onClick={(e) => this.moveItemUp(this.props.listItem, e)}>&#x21e7;</div>
+                    {this.props.todoList.items.indexOf(this.props.listItem) == 0 ? 
+                    <div className='list_item_card_button disabled' onClick={(e) => e.stopPropagation()}>&#x21e7;</div> :
+                    <div className='list_item_card_button' onClick={(e) => this.moveItemUp(this.props.listItem, e)}>&#x21e7;</div>    
+                    }
+                    {this.props.todoList.items.indexOf(this.props.listItem) == this.props.todoList.items.length-1 ? 
+                    <div className='list_item_card_button disabled' onClick={(e) => e.stopPropagation()}>&#x21e9;</div> :
                     <div className='list_item_card_button' onClick={(e) => this.moveItemDown(this.props.listItem, e)}>&#x21e9;</div>
+                    }
                     <div className='list_item_card_button' onClick={(e) => this.deleteItem(this.props.listItem, e)}>&#10005;</div>
                 </div>
             </div>
         )
     }
 }
+
+// <div className='list_item_card_button' onClick={(e) => this.moveItemUp(this.props.listItem, e)}>&#x21e7;</div>
+
 // (e) => this.moveItemUp(this.props.listItem, e)
 // {(e) => this.deleteRow(id, e)}
 // {this.deleteRow.bind(this, id)}
