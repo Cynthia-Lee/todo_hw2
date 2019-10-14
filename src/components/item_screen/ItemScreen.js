@@ -66,18 +66,7 @@ export class ItemScreen extends Component {
         // this.props.loadList(this.props.todoList);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    // Edit item
 
     /**
      * This method updates the item being edited with the arguments provided.
@@ -87,8 +76,8 @@ export class ItemScreen extends Component {
      * @param {String} dueDate New due date value.
      * @param {Boolean} completed New completed value.
      */
-    updateEditedItem(description, assignedTo, dueDate, completed) {
-        this.updateItem(this.editItem, description, assignedTo, dueDate, completed);
+    updateEditedItem(item, description, assignedTo, dueDate, completed) {
+        this.updateItem(item, description, assignedTo, dueDate, completed);
     }
 
 
@@ -135,7 +124,7 @@ export class ItemScreen extends Component {
                 <div id="item_form_container">
                     <div id="item_description_prompt" className="item_prompt">Description:</div>
                     <input id="item_description_textfield" className="item_input" type="input"
-                        efaultValue={this.props.todoItem.description}
+                        defaultValue={this.props.todoItem.description}
                         onChange={e => this.setState({description: e.target.value})} />
                     <div id="item_assigned_to_prompt" className="item_prompt">Assigned To:</div>
                     <input id="item_assigned_to_textfield" className="item_input" type="input" 
@@ -147,7 +136,7 @@ export class ItemScreen extends Component {
                         onChange={e => this.setState({due_date: e.target.value})} />
                     <div id="item_completed_prompt" className="item_prompt">Completed:</div>
                     <input id="item_completed_checkbox" className="item_input" type="checkbox" 
-                        defaultValue={this.props.todoItem.completed}
+                        defaultChecked={this.props.todoItem.completed}
                         onChange={e => this.setState({completed: e.target.checked})} />
                 </div>
                 <button id="item_form_submit_button" className="item_button" onClick={this.props.todoItem.key == null ? 
