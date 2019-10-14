@@ -16,4 +16,8 @@ ItemScreen.propTypes = {
     todoItem: PropTypes.object.isRequired
 }
 
+//goHome={this.goHome.bind(this)}
+//todoList={this.state.currentList} 
+//loadList={this.loadList.bind(this)}/>;
+
 export default ItemScreen

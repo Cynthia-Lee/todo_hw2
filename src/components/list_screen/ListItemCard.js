@@ -93,14 +93,28 @@ export class ListItemCard extends Component {
                 }
 
                 <div className='list_item_card_toolbar'>
-                    <div className='list_item_card_button' onClick={this.moveItemUp.bind(this, this.props.listItem)}>&#8679;</div>
-                    <div className='list_item_card_button' onClick={this.moveItemDown.bind(this, this.props.listItem)}>&#8681;</div>
+                    <div className='list_item_card_button' onClick={this.moveItemUp.bind(this, this.props.listItem)}>&#x21e7;</div>
+                    <div className='list_item_card_button' onClick={this.moveItemDown.bind(this, this.props.listItem)}>&#x21e9;</div>
                     <div className='list_item_card_button' onClick={this.deleteItem.bind(this, this.props.listItem)}>&#10005;</div>
                 </div>
             </div>
         )
     }
 }
+
+/*
+const TodoSymbols = {
+    DELETE: "&#10005;",     // TRASH SYMBOL
+    MOVE_DOWN: "&#x21e9;",  // DOWN ARROW
+    MOVE_UP: "&#x21e7;",    // UP ARROW
+    PLUS: "&#x2b;"          // PLUS
+};
+*/
+/*
+<div className='list_item_card_button' onClick={this.moveItemUp.bind(this, this.props.listItem)}>&#8679;</div>
+<div className='list_item_card_button' onClick={this.moveItemDown.bind(this, this.props.listItem)}>&#8681;</div>
+<div className='list_item_card_button' onClick={this.deleteItem.bind(this, this.props.listItem)}>&#10005;</div>
+*/
 
 // PropTypes added
 // {this.props.loadList.bind(this, this.props.todoList)}

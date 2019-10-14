@@ -29,6 +29,15 @@ class App extends Component {
     console.log("currentScreen: " + this.state.currentScreen);
   }
 
+  /**
+    * This function will navigate the user to the item screen where they
+    * may edit an item.
+    */
+  goItem() {
+    this.setState({currentScreen: AppScreen.ITEM_SCREEN});
+    // would have loadList info already
+  }
+
   render() {
     switch(this.state.currentScreen) {
       case AppScreen.HOME_SCREEN:
@@ -38,11 +47,17 @@ class App extends Component {
       case AppScreen.LIST_SCREEN:            
         return <ListScreen
           goHome={this.goHome.bind(this)}
+          goItem={this.goItem.bind(this)}
           todoList={this.state.currentList} 
           todoLists={this.state.todoLists}
           loadList={this.loadList.bind(this)} />;
       case AppScreen.ITEM_SCREEN:
-        return <ItemScreen />;
+        return <ItemScreen 
+          currentScreen={this.state.currentScreen} // currentScreen: PropTypes.string.isRequired
+          // todoItem: PropTypes.object.isRequired
+          goHome={this.goHome.bind(this)}
+          todoList={this.state.currentList} 
+          loadList={this.loadList.bind(this)}/>;
       default:
         return <div>ERROR</div>;
     }

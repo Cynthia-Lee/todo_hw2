@@ -179,6 +179,7 @@ export class ListItemsTable extends Component {
                             listItem={todoItem} />
                     ))
                 }
+                <div className="list_item_add_card" onClick={this.props.goItem}>&#x2b;</div>
             </div>
         )
     }
