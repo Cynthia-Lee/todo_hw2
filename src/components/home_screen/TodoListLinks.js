@@ -7,10 +7,13 @@ class TodoListLinks extends Component {
         return (
             <div id="home_your_lists_list">{
                 this.props.todoLists.map((todoList)=>(
-                    <TodoListLink  
-                        key={todoList.key}
-                        loadList={this.props.loadList} 
-                        todoList={todoList} />
+                    <>
+                        <TodoListLink  
+                            key={todoList.key}
+                            loadList={this.props.loadList} 
+                            todoList={todoList} />
+                        <br></br>
+                    </>
                 ))}
             </div>
         );
