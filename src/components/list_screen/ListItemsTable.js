@@ -164,20 +164,21 @@ export class ListItemsTable extends Component {
         }
     }
 
+    /*
     createKeyTest(todoList) {
         var i;
         var currKey;
         // want key that is the smallest number available
         // this seems to be O(n)
-        var mOne = null; // start of gap
-        var minKey;
-        var maxKey;
-        for (i = 0; i < todoList.length; i++) {
+        var mOne = -1; // start of gap
+        var minKey = -1;
+        var maxKey = -1;
+        for (i = 0; i < todoList.items.length; i++) {
             currKey = todoList.items[i].key;
             if (currKey > maxKey) { // update max
                 maxKey = currKey;
             }
-            if (minKey < currKey) {
+            if (currKey < minKey) {
                 minKey = currKey;
             }
             if (currKey == minKey++) { // update smallest key from gap
@@ -187,12 +188,13 @@ export class ListItemsTable extends Component {
             }
         }
         // if mOne is the smallest key with a space after it
-        if (mOne != null) {
+        if (mOne != -1) {
             return mOne + 1;
         } else {
             return maxKey + 1;
         }
     }
+    */
 
     createKey(todoList) {
         // array.find(function(item){ return item.key==i }
@@ -216,10 +218,6 @@ export class ListItemsTable extends Component {
             "due_date": "",
             "assigned_to": "",
             "completed": false
-            // key
-            // description
-            // due date
-            // completed
         }      
         // submit
         // cancel
