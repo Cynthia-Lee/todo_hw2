@@ -52,6 +52,11 @@ export class ListScreen extends Component {
             this.props.loadList(this.props.todoList);
             this.setState({name: this.getListName()});
             event.preventDefault(); // removes default undo in textbox
+        } else if (event.ctrlKey && event.keyCode === 89) {
+            this.props.jsTPS.doTransaction();
+            this.props.loadList(this.props.todoList);
+            this.setState({name: this.getListName()});
+            event.preventDefault(); // removes default undo in textbox
         }
     }
 
