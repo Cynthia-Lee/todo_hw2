@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 
 // jsTPS
 import ListNameChange_Transaction from '../../lib/jsTPS/ListNameChange_Transaction'
+import ListOwnerChange_Transaction from '../../lib/jsTPS/ListOwnerChange_Transaction'
 // src\lib\jsTPS\ListNameChange_Transaction.js
 
 export class ListScreen extends Component {
@@ -39,8 +40,22 @@ export class ListScreen extends Component {
 
     setListName(name) {
         // this.props.todoList.name = name;
-        this.props.jsTPS.addTransaction(new ListNameChange_Transaction(this.props.todoList, name));
+        let transaction = new ListNameChange_Transaction(this.props.todoList, name);
+        this.props.jsTPS.addTransaction(transaction);
+        console.log(transaction.toString());
+        // this.props.jsTPS.addTransaction(new ListNameChange_Transaction(this.props.todoList, name));
         this.setState({name: this.getListName()});
+        // console.log(this.getListName());
+        // set the text field back
+    }
+
+    setListOwner(owner) {
+        // this.props.todoList.name = name;
+        let transaction = new ListOwnerChange_Transaction(this.props.todoList, owner);
+        this.props.jsTPS.addTransaction(transaction);
+        console.log(transaction.toString());
+        // this.props.jsTPS.addTransaction(new ListNameChange_Transaction(this.props.todoList, name));
+        this.setState({owner: this.getListOwner()});
         // console.log(this.getListName());
         // set the text field back
     }
@@ -50,12 +65,12 @@ export class ListScreen extends Component {
         if (event.ctrlKey && event.keyCode === 90) {
             this.props.jsTPS.undoTransaction();
             this.props.loadList(this.props.todoList);
-            this.setState({name: this.getListName()});
+            this.setState({name: this.getListName(), owner: this.getListOwner()});
             event.preventDefault(); // removes default undo in textbox
         } else if (event.ctrlKey && event.keyCode === 89) {
             this.props.jsTPS.doTransaction();
             this.props.loadList(this.props.todoList);
-            this.setState({name: this.getListName()});
+            this.setState({name: this.getListName(), owner: this.getListOwner()});
             event.preventDefault(); // removes default undo in textbox
         }
     }
@@ -90,8 +105,10 @@ export class ListScreen extends Component {
                     <div id="list_details_owner_container" className="text_toolbar">
                         <span id="list_owner_prompt">Owner:</span>
                         <input
-                            defaultValue={this.getListOwner()}
-                            onChange={e => this.props.todoList.owner = e.target.value}
+                            // defaultValue={this.getListOwner()}
+                            value={this.getListOwner()}
+                            // onChange={e => this.props.todoList.owner = e.target.value}
+                            onChange={e => this.setListOwner(e.target.value)}
                             type="text"
                             id="list_owner_textfield" />
                     </div>
