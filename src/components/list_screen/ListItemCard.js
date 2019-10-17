@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'; // added
 
 // jsTPS
 import ListItemOrderChange_Transaction from '../../lib/jsTPS/ListItemOrderChange_Transaction'
+import ListItemRemoval_Transaction from '../../lib/jsTPS/ListItemRemoval_Transaction';
 
 export class ListItemCard extends Component {
 
@@ -132,9 +133,13 @@ export class ListItemCard extends Component {
 
     deleteItem = (listItem, e) => {
         e.stopPropagation();
-
+        /*
         var itemIndex = this.props.todoList.items.indexOf(listItem);
         this.props.todoList.items.splice(itemIndex, 1);
+        */
+        let transaction = new ListItemRemoval_Transaction(this.props.todoList, listItem);
+        this.props.jsTPS.addTransaction(transaction);
+
         // load the list
         this.props.loadList(this.props.todoList);
 

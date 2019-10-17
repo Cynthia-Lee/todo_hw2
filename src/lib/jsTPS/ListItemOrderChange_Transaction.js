@@ -16,11 +16,6 @@ import jsTPS_Transaction from './jsTPS_Transaction'
  */
 export default class ListItemOrderChange_Transaction extends jsTPS_Transaction {
 
-    state = {
-        move: ""
-    }
-    // move up/down
-
     /**
      * Constructor for this transaction, it initializes this
      * object with all the data needed to both do and undo
