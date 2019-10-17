@@ -61,6 +61,6 @@ export default class ListOwnerChange_Transaction extends jsTPS_Transaction {
      */
     // @Override
     toString() {
-        return "Owner Change " + this.ownerToChange;
+        return "List Owner Change " + this.ownerToChange;
     }
 }

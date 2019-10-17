@@ -223,7 +223,8 @@ export class ListItemsTable extends Component {
                             todoList={this.props.todoList}
                             loadList={this.props.loadList} 
                             listItem={todoItem} 
-                            goItem={this.props.goItem} />
+                            goItem={this.props.goItem} 
+                            jsTPS={this.props.jsTPS}/>
                     ))
                 }
                 <div className="list_item_add_card" onClick={this.props.goItem.bind(this, this.createNewItem())}>&#x2b;</div>

@@ -61,6 +61,6 @@ export default class ListNameChange_Transaction extends jsTPS_Transaction {
      */
     // @Override
     toString() {
-        return "Name change " + this.nameToChange;
+        return "List Name Change " + this.nameToChange;
     }
 }

@@ -60,18 +60,18 @@ export class ListScreen extends Component {
         // set the text field back
     }
 
-    // handle control z key press
+    // handle control z,y key press
     processCtrlZ(event) {
-        if (event.ctrlKey && event.keyCode === 90) {
+        if (event.ctrlKey && event.keyCode === 90) { // undo, ctrl z
             this.props.jsTPS.undoTransaction();
             this.props.loadList(this.props.todoList);
             this.setState({name: this.getListName(), owner: this.getListOwner()});
             event.preventDefault(); // removes default undo in textbox
-        } else if (event.ctrlKey && event.keyCode === 89) {
+        } else if (event.ctrlKey && event.keyCode === 89) { // redo, ctrl y
             this.props.jsTPS.doTransaction();
             this.props.loadList(this.props.todoList);
             this.setState({name: this.getListName(), owner: this.getListOwner()});
-            event.preventDefault(); // removes default undo in textbox
+            event.preventDefault(); // removes default redo in textbox
         }
     }
 
@@ -113,7 +113,7 @@ export class ListScreen extends Component {
                             id="list_owner_textfield" />
                     </div>
                 </div>
-                <ListItemsTable todoList={this.props.todoList} loadList={this.props.loadList} goItem={this.props.goItem} />
+                <ListItemsTable todoList={this.props.todoList} loadList={this.props.loadList} goItem={this.props.goItem} jsTPS={this.props.jsTPS}/>
             </div>
         )
     }
