@@ -27,6 +27,9 @@ class App extends Component {
   goHome = () => {
     this.setState({ currentScreen: AppScreen.HOME_SCREEN });
     this.setState({ currentList: null });
+
+    // should clear stack when go back home
+    this.state.jsTPS.clearAllTransactions();
   }
 
   loadList = (todoListToLoad) => {
@@ -64,7 +67,7 @@ class App extends Component {
           goItem={this.goItem.bind(this)}
           todoList={this.state.currentList}
           todoLists={this.state.todoLists}
-          loadList={this.loadList.bind(this)} 
+          loadList={this.loadList.bind(this)}
           jsTPS={this.state.jsTPS} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen
@@ -72,7 +75,7 @@ class App extends Component {
           todoItem={this.state.todoItem} // todoItem: PropTypes.object.isRequired
           goHome={this.goHome.bind(this)}
           todoList={this.state.currentList}
-          loadList={this.loadList.bind(this)} 
+          loadList={this.loadList.bind(this)}
           jsTPS={this.state.jsTPS} />;
       default:
         return <div>ERROR</div>;
