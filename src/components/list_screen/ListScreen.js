@@ -4,7 +4,19 @@ import ListItemsTable from './ListItemsTable'
 import ListTrash from './ListTrash'
 import PropTypes from 'prop-types';
 
+// jsTPS
+import ListNameChange_Transaction from '../../lib/jsTPS/ListNameChange_Transaction'
+// src\lib\jsTPS\ListNameChange_Transaction.js
+
 export class ListScreen extends Component {
+
+    // handle control z press
+    constructor(props) {
+        super(props);
+
+        this.processCtrlZ = this.processCtrlZ.bind(this);
+    }
+
     getListName() {
         if (this.props.todoList) {
             let name = this.props.todoList.name;
@@ -20,27 +32,52 @@ export class ListScreen extends Component {
         }
     }
 
+    setListName(name) {
+        this.props.jsTPS.addTransaction(new ListNameChange_Transaction(this.props.todoList, name));
+        // this.props.todoList.name = name;
+    }
+
+    // handle control z key press
+    processCtrlZ(event) {
+        if (event.ctrlKey && event.keyCode === 90) {
+            this.props.jsTPS.undoTransaction();
+            this.props.loadList(this.props.todoList);
+            // alert("HELLO");
+        }
+    }
+
+    // react component mounting
+    // componentDidMount() is invoked immediately after a component is mounted (inserted into the tree). 
+    // Initialization that requires DOM nodes should go here. 
+    componentDidMount() {
+        document.addEventListener("keydown", this.processCtrlZ);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.processCtrlZ);
+    }
+
     render() {
         return (
             <div id="todo_list">
                 <ListHeading goHome={this.props.goHome} />
-                <ListTrash todoList={this.props.todoList} loadList={this.props.loadList} todoLists={this.props.todoLists} goHome={this.props.goHome}/>
+                <ListTrash todoList={this.props.todoList} loadList={this.props.loadList} todoLists={this.props.todoLists} goHome={this.props.goHome} />
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>
-                        <input 
-                            defaultValue={this.getListName()} 
+                        <input
+                            defaultValue={this.getListName()}
                             // {(e) => {this.setState({inputVal: e.target.value})}}
-                            onChange={e => this.props.todoList.name = e.target.value}
-                            type="text" 
+                            onChange={e => this.setListName(e.target.value)}
+                            type="text"
                             id="list_name_textfield" />
                     </div>
                     <div id="list_details_owner_container" className="text_toolbar">
                         <span id="list_owner_prompt">Owner:</span>
-                        <input 
+                        <input
                             defaultValue={this.getListOwner()}
                             onChange={e => this.props.todoList.owner = e.target.value}
-                            type="text" 
+                            type="text"
                             id="list_owner_textfield" />
                     </div>
                 </div>

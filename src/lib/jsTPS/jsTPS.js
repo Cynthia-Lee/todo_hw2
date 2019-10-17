@@ -13,7 +13,7 @@
  * @author THE McKilla Gorilla (accept no imposters)
  * @version 2.0
  */
-class jsTPS {
+export default class jsTPS {
     // THE TRANSACTION STACK
     // private ArrayList<jsTPS_Transaction> transactions = new ArrayList();
 
