@@ -89,7 +89,7 @@ export class ListScreen extends Component {
     render() {
         return (
             <div id="todo_list">
-                <ListHeading goHome={this.props.goHome} />
+                <ListHeading goHome={this.props.goHome} jsTPS={this.props.jsTPS}/>
                 <ListTrash todoList={this.props.todoList} loadList={this.props.loadList} todoLists={this.props.todoLists} goHome={this.props.goHome} />
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">

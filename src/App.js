@@ -72,7 +72,8 @@ class App extends Component {
           todoItem={this.state.todoItem} // todoItem: PropTypes.object.isRequired
           goHome={this.goHome.bind(this)}
           todoList={this.state.currentList}
-          loadList={this.loadList.bind(this)} />;
+          loadList={this.loadList.bind(this)} 
+          jsTPS={this.state.jsTPS} />;
       default:
         return <div>ERROR</div>;
     }

@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
+// jsTPS
+import ListItemEdit_Transaction from '../../lib/jsTPS/ListItemEdit_Transaction'
+
 export class ItemScreen extends Component {
 
     state = {
-        description: this.props.todoItem.description, 
-        due_date: this.props.todoItem.due_date, 
-        assigned_to: this.props.todoItem.assigned_to, 
-        completed: this.props.todoItem.completed, 
+        description: this.props.todoItem.description,
+        due_date: this.props.todoItem.due_date,
+        assigned_to: this.props.todoItem.assigned_to,
+        completed: this.props.todoItem.completed,
     }
 
     /**
@@ -35,7 +38,7 @@ export class ItemScreen extends Component {
         // array.find(function(item){ return item.key==i }
         var i;
         for (i = 0; i < todoList.items.length; i++) {
-            if((todoList.items.find(function(item){ return item.key==i })) == null) { // true if found
+            if ((todoList.items.find(function (item) { return item.key == i })) == null) { // true if found
                 return i;
             }
         }
@@ -51,7 +54,7 @@ export class ItemScreen extends Component {
      * @param {String} dueDate 
      * @param {Boolean} completed 
      */
-     updateNewItem(item, description, assignedTo, dueDate, completed) {
+    updateNewItem(item, description, assignedTo, dueDate, completed) {
         var k = this.createItemKey(this.props.todoList);
         item.key = k;
         this.addItem(item);
@@ -59,7 +62,7 @@ export class ItemScreen extends Component {
         // this.listToEdit.addItem(this.newItem);
         // this.updateItem(this.newItem, description, assignedTo, dueDate, completed);
 
-    }         
+    }
 
     addItem(item) {
         this.props.todoList.items.splice(this.props.todoList.items.length, 0, item);
@@ -77,7 +80,12 @@ export class ItemScreen extends Component {
      * @param {Boolean} completed New completed value.
      */
     updateEditedItem(item, description, assignedTo, dueDate, completed) {
-        this.updateItem(item, description, assignedTo, dueDate, completed);
+        // this.updateItem(item, description, assignedTo, dueDate, completed);
+
+        let transaction = new ListItemEdit_Transaction(this.props.todoList, item, description, assignedTo, dueDate, completed);
+        this.props.jsTPS.addTransaction(transaction);
+        console.log(transaction.toString());
+        this.props.loadList(this.props.todoList);
     }
 
     render() {
@@ -88,22 +96,22 @@ export class ItemScreen extends Component {
                     <div id="item_description_prompt" className="item_prompt">Description:</div>
                     <input id="item_description_textfield" className="item_input" type="input"
                         defaultValue={this.props.todoItem.description}
-                        onChange={e => this.setState({description: e.target.value})} />
+                        onChange={e => this.setState({ description: e.target.value })} />
                     <div id="item_assigned_to_prompt" className="item_prompt">Assigned To:</div>
-                    <input id="item_assigned_to_textfield" className="item_input" type="input" 
+                    <input id="item_assigned_to_textfield" className="item_input" type="input"
                         defaultValue={this.props.todoItem.assigned_to}
-                        onChange={e => this.setState({assigned_to: e.target.value})} />
+                        onChange={e => this.setState({ assigned_to: e.target.value })} />
                     <div id="item_due_date_prompt" className="item_prompt">Due Date:</div>
-                    <input id="item_due_date_picker" className="item_input" type="date" 
+                    <input id="item_due_date_picker" className="item_input" type="date"
                         defaultValue={this.props.todoItem.due_date}
-                        onChange={e => this.setState({due_date: e.target.value})} />
+                        onChange={e => this.setState({ due_date: e.target.value })} />
                     <div id="item_completed_prompt" className="item_prompt">Completed:</div>
-                    <input id="item_completed_checkbox" className="item_input" type="checkbox" 
+                    <input id="item_completed_checkbox" className="item_input" type="checkbox"
                         defaultChecked={this.props.todoItem.completed}
-                        onChange={e => this.setState({completed: e.target.checked})} />
+                        onChange={e => this.setState({ completed: e.target.checked })} />
                 </div>
-                <button id="item_form_submit_button" className="item_button" onClick={this.props.todoItem.key == null ? 
-                    this.updateNewItem.bind(this, this.props.todoItem, this.state.description, this.state.assigned_to, this.state.due_date, this.state.completed) 
+                <button id="item_form_submit_button" className="item_button" onClick={this.props.todoItem.key == null ?
+                    this.updateNewItem.bind(this, this.props.todoItem, this.state.description, this.state.assigned_to, this.state.due_date, this.state.completed)
                     : this.updateEditedItem.bind(this, this.props.todoItem, this.state.description, this.state.assigned_to, this.state.due_date, this.state.completed)}>Submit</button>
                 <button id="item_form_cancel_button" className="item_button" onClick={this.props.loadList.bind(this, this.props.todoList)}>Cancel</button>
             </div>
