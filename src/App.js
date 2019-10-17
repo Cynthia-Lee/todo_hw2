@@ -34,7 +34,7 @@ class App extends Component {
     this.setState({ currentList: todoListToLoad });
     // move current list to top of todoLists
     // remove current list from the array
-    this.state.todoLists.splice(this.state.todoLists.indexOf(todoListToLoad), 1)
+    this.state.todoLists.splice(this.state.todoLists.indexOf(todoListToLoad), 1);
     // add current list to the top of todoLists
     this.state.todoLists.splice(0, 0, todoListToLoad);
     console.log("currentList: " + this.state.currentList);

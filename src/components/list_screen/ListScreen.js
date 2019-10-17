@@ -10,6 +10,11 @@ import ListNameChange_Transaction from '../../lib/jsTPS/ListNameChange_Transacti
 
 export class ListScreen extends Component {
 
+    state = {
+        name: this.props.todoList.name,
+        owner: this.props.todoList.owner
+    }
+
     // handle control z press
     constructor(props) {
         super(props);
@@ -33,8 +38,11 @@ export class ListScreen extends Component {
     }
 
     setListName(name) {
-        this.props.jsTPS.addTransaction(new ListNameChange_Transaction(this.props.todoList, name));
         // this.props.todoList.name = name;
+        this.props.jsTPS.addTransaction(new ListNameChange_Transaction(this.props.todoList, name));
+        this.setState({name: this.getListName()});
+        // console.log(this.getListName());
+        // set the text field back
     }
 
     // handle control z key press
@@ -42,7 +50,8 @@ export class ListScreen extends Component {
         if (event.ctrlKey && event.keyCode === 90) {
             this.props.jsTPS.undoTransaction();
             this.props.loadList(this.props.todoList);
-            // alert("HELLO");
+            this.setState({name: this.getListName()});
+            event.preventDefault(); // removes default undo in textbox
         }
     }
 
@@ -66,7 +75,8 @@ export class ListScreen extends Component {
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>
                         <input
-                            defaultValue={this.getListName()}
+                            // defaultValue={this.getListName()}
+                            value={this.getListName()}
                             // {(e) => {this.setState({inputVal: e.target.value})}}
                             onChange={e => this.setListName(e.target.value)}
                             type="text"
