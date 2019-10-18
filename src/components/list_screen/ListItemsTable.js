@@ -136,7 +136,6 @@ export class ListItemsTable extends Component {
         }
         */
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)) {
-            console.log("NEXT");
             var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_TASK_DECREASING);
             this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING});
         }
@@ -144,7 +143,6 @@ export class ListItemsTable extends Component {
         else {
             var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_TASK_INCREASING);
             this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING});
-            console.log("START");
         }
 
         this.props.jsTPS.addTransaction(transaction);
@@ -158,12 +156,19 @@ export class ListItemsTable extends Component {
     processSortItemsByDueDate() {
         // IF WE ARE CURRENTLY INCREASING BY DUE DATE SWITCH TO DECREASING
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)) {
-            this.sortTasks(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING);
+            // this.sortTasks(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING);
+            var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING);
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING});
         }
         // ALL OTHER CASES SORT BY INCREASING
         else {
-            this.sortTasks(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING);
+            // this.sortTasks(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING);
+            var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING);
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING});
         }
+
+        this.props.jsTPS.addTransaction(transaction);
+        this.props.loadList(this.props.todoList);
     }
 
     /**
@@ -173,12 +178,19 @@ export class ListItemsTable extends Component {
     processSortItemsByStatus() {
         // IF WE ARE CURRENTLY INCREASING BY STATUS SWITCH TO DECREASING
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_STATUS_INCREASING)) {
-            this.sortTasks(ItemSortCriteria.SORT_BY_STATUS_DECREASING);
+            // this.sortTasks(ItemSortCriteria.SORT_BY_STATUS_DECREASING);
+            var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_STATUS_DECREASING);
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_DECREASING});
         }
         // ALL OTHER CASES SORT BY INCRASING
         else {
-            this.sortTasks(ItemSortCriteria.SORT_BY_STATUS_INCREASING);
+            // this.sortTasks(ItemSortCriteria.SORT_BY_STATUS_INCREASING);
+            var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_STATUS_INCREASING);
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_STATUS_INCREASING});
         }
+
+        this.props.jsTPS.addTransaction(transaction);
+        this.props.loadList(this.props.todoList);
     }
 
     /*

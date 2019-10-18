@@ -1,6 +1,3 @@
-// package demo;
-
-// import jtps.jTPS_Transaction;
 // jsTPS
 import jsTPS_Transaction from './jsTPS_Transaction'
 
@@ -125,16 +122,6 @@ export default class ListItemSorts_Transaction extends jsTPS_Transaction {
         this.sortTasks();
         // console.log(this.list.items);
     }
-    /*
-    if (this.currentItemSortCriteria == ItemSortCriteria.SORT_BY_TASK_INCREASING) {
-                this.sortTasks(ItemSortCriteria.SORT_BY_TASK_DECREASING);
-                // console.log("go inside");
-            }
-            // ALL OTHER CASES SORT BY INCREASING
-            else {
-                this.sortTasks(ItemSortCriteria.SORT_BY_TASK_INCREASING);
-            }
-    */
 
     /**
      * As the reverse of do, this method substracts from num.

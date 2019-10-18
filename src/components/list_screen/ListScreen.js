@@ -74,8 +74,6 @@ export class ListScreen extends Component {
             this.props.loadList(this.props.todoList);
             this.setState({name: this.getListName(), owner: this.getListOwner()});
             event.preventDefault(); // removes default redo in textbox
-        } else if (event.keyCode == 32) {
-            console.log(this.props.jsTPS.toString());
         }
     }
 
