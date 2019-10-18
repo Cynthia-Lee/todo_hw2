@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // jsTPS
 import ListItemEdit_Transaction from '../../lib/jsTPS/ListItemEdit_Transaction'
+import ListItemAdd_Transaction from '../../lib/jsTPS/ListItemAdd_Transaction'
 
 export class ItemScreen extends Component {
 
@@ -57,11 +58,11 @@ export class ItemScreen extends Component {
     updateNewItem(item, description, assignedTo, dueDate, completed) {
         var k = this.createItemKey(this.props.todoList);
         item.key = k;
-        this.addItem(item);
+        // this.addItem(item);
         this.updateItem(item, description, assignedTo, dueDate, completed);
-        // this.listToEdit.addItem(this.newItem);
-        // this.updateItem(this.newItem, description, assignedTo, dueDate, completed);
 
+        let transaction = new ListItemAdd_Transaction(this.props.todoList, item);
+        this.props.jsTPS.addTransaction(transaction);
     }
 
     addItem(item) {
