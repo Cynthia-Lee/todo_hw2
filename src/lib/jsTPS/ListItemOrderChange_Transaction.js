@@ -80,6 +80,6 @@ export default class ListItemOrderChange_Transaction extends jsTPS_Transaction {
      */
     // @Override
     toString() {
-        return "List Item Order Change " + this.state.move + " " + this.itemOrderToChange;
+        return "List Item Order Change " + this.moveDirection + " " + this.itemOrderToChange;
     }
 }

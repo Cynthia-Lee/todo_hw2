@@ -63,15 +63,19 @@ export class ListScreen extends Component {
     // handle control z,y key press
     processCtrlZ(event) {
         if (event.ctrlKey && event.keyCode === 90) { // undo, ctrl z
+            console.log("undo");
             this.props.jsTPS.undoTransaction();
             this.props.loadList(this.props.todoList);
             this.setState({name: this.getListName(), owner: this.getListOwner()});
             event.preventDefault(); // removes default undo in textbox
         } else if (event.ctrlKey && event.keyCode === 89) { // redo, ctrl y
+            console.log("redo");
             this.props.jsTPS.doTransaction();
             this.props.loadList(this.props.todoList);
             this.setState({name: this.getListName(), owner: this.getListOwner()});
             event.preventDefault(); // removes default redo in textbox
+        } else if (event.keyCode == 32) {
+            console.log(this.props.jsTPS.toString());
         }
     }
 

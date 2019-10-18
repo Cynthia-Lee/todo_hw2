@@ -7,13 +7,16 @@ import ListItemRemoval_Transaction from '../../lib/jsTPS/ListItemRemoval_Transac
 
 export class ListItemCard extends Component {
 
+    /*
     // handle control z press
     constructor(props) {
         super(props);
 
         this.processCtrlZ = this.processCtrlZ.bind(this);
     }
+    */
 
+    /*
     processCtrlZ(event) {
         if (event.ctrlKey && event.keyCode === 90) { // undo, ctrl z
             this.props.jsTPS.undoTransaction();
@@ -23,6 +26,7 @@ export class ListItemCard extends Component {
             this.props.loadList(this.props.todoList);
         }
     }
+    */
 
     /*
     getIndex(listItem) {

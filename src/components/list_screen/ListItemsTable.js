@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import ListItemCard from './ListItemCard'
 import PropTypes from 'prop-types';
 
+// jsTPS
+import ListItemSorts_Transaction from '../../lib/jsTPS/ListItemSorts_Transaction'
+
 /**
  * ItemSortCriteria - these are the different criteria that can be used for
  * sorting the items in a list's items table.
@@ -34,9 +37,9 @@ export class ListItemsTable extends Component {
         this.processSortItemsByDueDate = this.processSortItemsByDueDate.bind(this);
         this.processSortItemsByStatus = this.processSortItemsByStatus.bind(this);
     }
-    
+
     // provided from McKenna's todo javascript code
-    
+
     /**
      * This method sorts the todo list items according to the provided sorting criteria.
      * 
@@ -46,7 +49,7 @@ export class ListItemsTable extends Component {
         // this.setState({currentItemSortCriteria: sortingCriteria}); doesn't do it right away
         // setState is delayed, using function() will pass it with the updated criteria
         // function callback is guaranteed to fire after the update
-        this.setState({currentItemSortCriteria: sortingCriteria}, function() {
+        this.setState({ currentItemSortCriteria: sortingCriteria }, function () {
             this.props.todoList.items.sort(this.compare);
             this.props.loadList(this.props.todoList);
         });
@@ -92,10 +95,10 @@ export class ListItemsTable extends Component {
         // SORT BY DUE DATE
         else if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)
             || this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_DECREASING)) {
-                let dueDate1 = item1.due_date;
-                let dueDate2 = item2.due_date;
-                let date1 = new Date(dueDate1);
-                let date2 = new Date(dueDate2);
+            let dueDate1 = item1.due_date;
+            let dueDate2 = item2.due_date;
+            let date1 = new Date(dueDate1);
+            let date2 = new Date(dueDate2);
             if (date1 < date2)
                 return -1;
             else if (date1 > date2)
@@ -122,6 +125,7 @@ export class ListItemsTable extends Component {
         // alert(this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING));
         // alert(this.state.currentItemSortCriteria);
         // this.state.currentItemSortCriteria = "default";
+        /*
         // IF WE ARE CURRENTLY INCREASING BY TASK SWITCH TO DECREASING
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)) {
             this.sortTasks(ItemSortCriteria.SORT_BY_TASK_DECREASING);
@@ -130,12 +134,27 @@ export class ListItemsTable extends Component {
         else {
             this.sortTasks(ItemSortCriteria.SORT_BY_TASK_INCREASING);
         }
+        */
+        if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_TASK_INCREASING)) {
+            console.log("NEXT");
+            var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_TASK_DECREASING);
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_DECREASING});
+        }
+        // ALL OTHER CASES SORT BY INCREASING
+        else {
+            var transaction = new ListItemSorts_Transaction(this.props.todoList, ItemSortCriteria.SORT_BY_TASK_INCREASING);
+            this.setState({ currentItemSortCriteria: ItemSortCriteria.SORT_BY_TASK_INCREASING});
+            console.log("START");
+        }
+
+        this.props.jsTPS.addTransaction(transaction);
+        this.props.loadList(this.props.todoList);
     }
 
-     /**
-     * This function is called in response to when the user clicks
-     * on the Due Date header in the items table.
-     */
+    /**
+    * This function is called in response to when the user clicks
+    * on the Due Date header in the items table.
+    */
     processSortItemsByDueDate() {
         // IF WE ARE CURRENTLY INCREASING BY DUE DATE SWITCH TO DECREASING
         if (this.isCurrentItemSortCriteria(ItemSortCriteria.SORT_BY_DUE_DATE_INCREASING)) {
@@ -217,14 +236,14 @@ export class ListItemsTable extends Component {
                     <div className="list_item_status_header" onClick={this.processSortItemsByStatus}>Status</div>
                 </div>
                 {
-                    this.props.todoList.items.map((todoItem)=>(
-                        <ListItemCard 
+                    this.props.todoList.items.map((todoItem) => (
+                        <ListItemCard
                             key={todoItem.key}
                             todoList={this.props.todoList}
-                            loadList={this.props.loadList} 
-                            listItem={todoItem} 
-                            goItem={this.props.goItem} 
-                            jsTPS={this.props.jsTPS}/>
+                            loadList={this.props.loadList}
+                            listItem={todoItem}
+                            goItem={this.props.goItem}
+                            jsTPS={this.props.jsTPS} />
                     ))
                 }
                 <div className="list_item_add_card" onClick={this.props.goItem.bind(this, this.createNewItem())}>&#x2b;</div>

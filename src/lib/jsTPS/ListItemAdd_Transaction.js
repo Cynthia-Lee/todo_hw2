@@ -70,6 +70,6 @@ export default class ListItemAdd_Transaction extends jsTPS_Transaction {
      */
     // @Override
     toString() {
-        return "List Item Add " + this.itemToEdit;
+        return "List Item Add " + this.itemToAdd;
     }
 }

@@ -56,6 +56,6 @@ export default class ListItemRemoval_Transaction extends jsTPS_Transaction {
      */
     // @Override
     toString() {
-        return "List Item Removal " + this.state.move + " " + this.itemOrderToChange;
+        return "List Item Removal " + this.itemToDelete;
     }
 }
